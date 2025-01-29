@@ -1,10 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink],
+  imports: [RouterLink, NgFor],
   template: `
     <div class="navbar bg-base-100">
       <div class="navbar-start">
@@ -29,25 +29,32 @@ import { RouterLink } from '@angular/router';
             tabindex="0"
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li><a routerLink="/">Home</a></li>
-
-            <li><a routerLink="resources">Resources</a></li>
+            <li *ngFor="let link of links()">
+              <a [routerLink]="[link.path]">{{ link.name }}</a>
+            </li>
           </ul>
         </div>
         <a class="btn btn-ghost text-xl">Applied Angular</a>
       </div>
-      <div class="navbar-center hidden lg:flex">
+      <div class="navbar-end hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><a routerLink="/">Home</a></li>
-
-          <li><a routerLink="resources">Resources</a></li>
+          <li *ngFor="let link of links()">
+            <a [routerLink]="[link.path]">{{ link.name }}</a>
+          </li>
         </ul>
       </div>
-      <div class="navbar-end">
+      <!-- <div class="navbar-end">
         <a class="btn">Button</a>
-      </div>
+      </div> -->
     </div>
   `,
   styles: ``,
 })
-export class NavigationComponent {}
+export class NavigationComponent {
+  links = signal([
+    { name: 'Home', path: '/' },
+    { name: 'Resources', path: '/resources' },
+    { name: 'Demos', path: '/demos' },
+    { name: 'Golf', path: '/golf' },
+  ]);
+}
