@@ -20,6 +20,16 @@
     ],
     "description": "Angular Standalone Component",
   },
+  "Angular Route App Route": {
+    "scope": "typescript",
+    "prefix": "ngar",
+    "body": [
+      "{",
+      "path: '$1',",
+      "loadChildren: () => import('$2').then((r) => r.$3)",
+      "},",
+    ],
+  },
   "Angular Refactor Component": {
     "scope": "typescript",
     "prefix": "ngrc",

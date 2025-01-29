@@ -56,5 +56,6 @@ export class NavigationComponent {
     { name: 'Resources', path: '/resources' },
     { name: 'Demos', path: '/demos' },
     { name: 'Golf', path: '/golf' },
+    { name: 'Counter', path: '/counter' },
   ]);
 }
