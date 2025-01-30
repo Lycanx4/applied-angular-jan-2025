@@ -1,19 +1,18 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CounterStore } from '../services/counter.store';
-
+import { NgFor } from '@angular/common';
 @Component({
   selector: 'app-prefs',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [NgFor],
   template: `
-    <button class="btn btn-primary mr-2" (click)="store.updateCountBy(1)">
-      Count by 1
-    </button>
-    <button class="btn btn-secondary mr-2" (click)="store.updateCountBy(3)">
-      Count by 3
-    </button>
-    <button class="btn btn-accent mr-2" (click)="store.updateCountBy(5)">
-      Count by 5
+    <button
+      *ngFor="let pref of store.prefsList()"
+      class="btn btn-primary mr-2"
+      [disabled]="store.countBy() === pref"
+      (click)="store.updateCountBy(pref)"
+    >
+      Count by {{ pref }}
     </button>
   `,
   styles: ``,

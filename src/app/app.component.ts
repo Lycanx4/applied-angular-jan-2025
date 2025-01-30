@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavigationComponent } from './components/navigation.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { share } from 'rxjs';
+import { FeatureDirective } from '@shared';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,6 @@ import { RouterOutlet } from '@angular/router';
     </main>
   `,
   styles: [],
-  imports: [NavigationComponent, RouterOutlet],
+  imports: [NavigationComponent, RouterOutlet, FeatureDirective, RouterLink],
 })
 export class AppComponent {}

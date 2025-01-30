@@ -1,10 +1,11 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { NavigationListItemComponent } from './navigation-list-item.component';
 
 @Component({
   selector: 'app-navigation',
-  imports: [RouterLink, NgFor],
+  imports: [RouterLink, NgFor, NavigationListItemComponent],
   template: `
     <div class="navbar bg-base-100">
       <div class="navbar-start">
@@ -25,23 +26,15 @@ import { RouterLink } from '@angular/router';
               />
             </svg>
           </div>
-          <ul
+          <app-navigation-list-item
             tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li *ngFor="let link of links()">
-              <a [routerLink]="[link.path]">{{ link.name }}</a>
-            </li>
-          </ul>
+            classNames="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          />
         </div>
         <a class="btn btn-ghost text-xl">Applied Angular</a>
       </div>
       <div class="navbar-end hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          <li *ngFor="let link of links()">
-            <a [routerLink]="[link.path]">{{ link.name }}</a>
-          </li>
-        </ul>
+        <app-navigation-list-item classNames="menu menu-horizontal px-1" />
       </div>
       <!-- <div class="navbar-end">
         <a class="btn">Button</a>

@@ -9,14 +9,17 @@ import { CounterStore } from '../services/counter.store';
     <div class="m-2 text-yellow-200">Count By: {{ store.countBy() }}</div>
     <div>
       <button
-        class="btn btn-warning mr-2"
+        class="btn btn-warning m-2"
         [disabled]="store.removeCounterDisabled()"
         (click)="store.minusCount()"
       >
         -
       </button>
       <span data-testid="current"> {{ store.count() }} </span>
-      <button class="btn btn-primary ml-2" (click)="store.addCount()">+</button>
+      <button class="btn btn-primary m-2" (click)="store.addCount()">+</button>
+      <button class="btn btn-secondary m-2" (click)="store.resetCounter()">
+        Reset
+      </button>
     </div>
     <div class="m-2 text-blue-300">
       <b

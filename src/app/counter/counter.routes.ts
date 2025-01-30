@@ -10,12 +10,12 @@ export const COUNTER_ROUTES: Routes = [
     component: CounterComponent,
     children: [
       {
-        path: 'ui', // demos/basic-signals
+        path: 'ui',
         component: UiComponent,
       },
       {
         path: 'prefs',
-        component: PrefsComponent, // demos/basic-signals
+        component: PrefsComponent,
       },
     ],
   },

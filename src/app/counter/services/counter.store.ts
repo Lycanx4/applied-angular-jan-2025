@@ -2,31 +2,37 @@ import { computed } from '@angular/core';
 import {
   patchState,
   signalStore,
+  watchState,
   withComputed,
+  withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
-const initialCount = parseInt(localStorage.getItem('count') || '0');
-const initialCountBy = parseInt(localStorage.getItem('countBy') || '1');
+const countByList = [1, 3, 5] as const;
 export const CounterStore = signalStore(
   withState({
-    count: initialCount,
-    countBy: initialCountBy,
+    count: 0,
+    countBy: 1,
   }),
   withMethods((store) => {
     return {
       addCount: () => {
         patchState(store, { count: store.count() + store.countBy() });
-        localStorage.setItem('count', store.count().toString());
+        // localStorage.setItem('count', store.count().toString());
       },
       minusCount: () => {
         patchState(store, { count: store.count() - store.countBy() });
-        localStorage.setItem('count', store.count().toString());
+        // localStorage.setItem('count', store.count().toString());
       },
       updateCountBy: (countBy: number) => {
         patchState(store, { countBy });
-        localStorage.setItem('countBy', countBy.toString());
+        // localStorage.setItem('countBy', countBy.toString());
       },
+      resetCounter: () => {
+        patchState(store, { count: 0 });
+        // localStorage.setItem('count', '0');
+      },
+      prefsList: () => countByList,
     };
   }),
   withComputed((store) => {
@@ -48,6 +54,25 @@ export const CounterStore = signalStore(
           return '';
         }
       }),
+    };
+  }),
+  withHooks((store) => {
+    return {
+      onInit() {
+        patchState(store, {
+          count: parseInt(localStorage.getItem('count') || '0'),
+          countBy: parseInt(localStorage.getItem('countBy') || '1'),
+        });
+
+        watchState(store, () => {
+          localStorage.setItem('count', store.count().toString());
+          localStorage.setItem('countBy', store.countBy().toString());
+        });
+      },
+      onDestroy() {
+        // localStorage.setItem('count', store.count().toString());
+        // localStorage.setItem('countBy', store.countBy().toString());
+      },
     };
   }),
 );
